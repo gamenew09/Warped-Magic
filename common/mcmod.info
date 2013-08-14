@@ -1,0 +1,20 @@
+[
+{
+  "modid": "WMM",
+  "name": "Warped Magic",
+  "description": "More magic! You hate don't use?",
+  "version": "0.0.1",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "gamenew09"
+  ],
+  "credits": "To you pahimar for helping me with a new setup. :D",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
