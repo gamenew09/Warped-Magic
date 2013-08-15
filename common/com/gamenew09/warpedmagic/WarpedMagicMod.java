@@ -35,7 +35,7 @@ public class WarpedMagicMod {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		
-		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 2).setCreativeTab(CreativeTabs.tabTools);
+		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools);
 		
 		LanguageRegistry.addName(wandLevitate, "Levitate Wand");
 	}
