@@ -2,6 +2,7 @@ package com.gamenew09.warpedmagic.item.wand;
 
 import java.util.List;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
 import net.minecraft.util.EnumChatFormatting;
@@ -18,6 +19,20 @@ public abstract class ItemBaseWand extends Item {
 	}
 	
 	public abstract int getBurnTime(ItemStack s);
+	
+	/**
+	 * Gets the max level of the wand.
+	 * @return The level(1-int limit)
+	 */
+	public abstract int getMaxWandLevel();
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List){
+		 for (int j = 1; j < getMaxWandLevel(); ++j)
+	     {
+			 par3List.add(new ItemStack(par1, 1, j - 1));
+	     }
+	}
 	
 	protected int getLevelByMetaData(ItemStack stack){
 		return stack.getItemDamage() + 1;
