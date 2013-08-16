@@ -58,8 +58,8 @@ public class ItemLevitateWand extends ItemBaseWand {
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World world, EntityPlayer player)
     {
 		boolean a = false;
-		if(player.isCollided && decItemStackByItem(player, new ItemStack(Item.coal))){
-			player.setPosition(player.posX, player.posY + (5 * (par1ItemStack.getItemDamage() + 1)), player.posZ);
+		if(player.isCollidedVertically && !player.isCollidedHorizontally && decItemStackByItem(player, new ItemStack(Item.coal))){
+			player.setPosition(player.posX, player.posY + (5 * (getLevelByMetaData(par1ItemStack))), player.posZ);
 			world.spawnParticle("smoke", player.posX, player.posY, player.posZ, 0, 2, 0);
 			a = true;
 		}
