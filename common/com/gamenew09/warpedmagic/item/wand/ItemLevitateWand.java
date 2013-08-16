@@ -34,26 +34,6 @@ public class ItemLevitateWand extends ItemBaseWand {
 		return false;
 	}
 	
-	/**
-	 * Decrement ItemStack found by one.
-	 * @param player = The Player
-	 * @param itemstack - Item, stackSize is removal and minimal.
-	 */
-	private boolean decItemStackByItem(EntityPlayer player, ItemStack itemstack){
-		if(player.capabilities.isCreativeMode) return true;
-		for(int i = 0; i < player.inventory.mainInventory.length; i++){
-			ItemStack is = player.inventory.mainInventory[i];
-			if(is != null){
-				if(is.itemID == itemstack.itemID && is.stackSize >= itemstack.stackSize && is.getItemDamage() == itemstack.getItemDamage()){
-					is.stackSize -= itemstack.stackSize;
-					player.inventory.mainInventory[i] = is;
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
 	public String getItemDisplayName(ItemStack itemStack){
 		return EnumChatFormatting.GOLD + super.getItemDisplayName(itemStack);
 	}
@@ -61,7 +41,8 @@ public class ItemLevitateWand extends ItemBaseWand {
 	@SuppressWarnings("static-access")
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World world, EntityPlayer player)
     {
-		if((player.isCollidedVertically || getLevelByMetaData(par1ItemStack) >= 2) && !player.isCollidedHorizontally && decItemStackByItem(player, new ItemStack(Item.coal))){
+		if((player.isCollidedVertically || getLevelByMetaData(par1ItemStack) >= 3) && (!player.isCollidedHorizontally || getLevelByMetaData(par1ItemStack) >= 2) && decItemStackByItem(player, new ItemStack(Item.coal))){
+			player.setVelocity(player.motionX, 0, player.motionZ);
 			player.setPosition(player.posX, player.posY + (5 * (getLevelByMetaData(par1ItemStack))), player.posZ);
 			for (int i = 0; i < 32; ++i)
 	        {
