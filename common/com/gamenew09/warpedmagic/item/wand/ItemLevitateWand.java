@@ -3,7 +3,9 @@ package com.gamenew09.warpedmagic.item.wand;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 public class ItemLevitateWand extends ItemBaseWand {
@@ -15,25 +17,51 @@ public class ItemLevitateWand extends ItemBaseWand {
 
 	@Override
 	public boolean doWandAction(ItemStack stack, EntityPlayer player, World world, int X, int Y, int Z, int side, float hitX, float hitY, float hitZ) {
-		if(player.isCollided){
-			stack.damageItem(onUseDamageAmount, player);
-			player.setPosition(player.posX, player.posY + 10, player.posZ);
-			world.spawnParticle("smoke", player.posX, player.posY, player.posZ, 0, 2, 0);
-			return true;
+		//if(player.isCollided && decItemStackByItem(player, new ItemStack(Item.coal, 2))){
+		//	stack.damageItem(onUseDamageAmount, player);
+		//	player.setPosition(player.posX, player.posY + 10, player.posZ);
+		//	world.spawnParticle("smoke", player.posX, player.posY, player.posZ, 0, 2, 0);
+		//	stack.damageItem(2, player);
+		//	return true;
+		//}
+		return false;
+	}
+	
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int X, int Y, int Z, int side, float hitX, float hitY, float hitZ){
+		return false;
+	}
+	
+	/**
+	 * Decrement ItemStack found by one.
+	 * @param player = The Player
+	 * @param itemstack - Item, stackSize is removal and minimal.
+	 */
+	private boolean decItemStackByItem(EntityPlayer player, ItemStack itemstack){
+		if(player.capabilities.isCreativeMode) return true;
+		for(int i = 0; i < player.inventory.mainInventory.length; i++){
+			ItemStack is = player.inventory.mainInventory[i];
+			if(is != null){
+				if(is.itemID == itemstack.itemID && is.stackSize >= itemstack.stackSize && is.getItemDamage() == itemstack.getItemDamage()){
+					is.stackSize -= itemstack.stackSize;
+					player.inventory.mainInventory[i] = is;
+					return true;
+				}
+			}
 		}
 		return false;
+	}
+	
+	public String getItemDisplayName(ItemStack itemStack){
+		return EnumChatFormatting.GOLD + super.getItemDisplayName(itemStack);
 	}
 	
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World world, EntityPlayer player)
     {
 		boolean a = false;
-		if(player.isCollided){
-			player.setPosition(player.posX, player.posY + 10, player.posZ);
+		if(player.isCollided && decItemStackByItem(player, new ItemStack(Item.coal))){
+			player.setPosition(player.posX, player.posY + (5 * (par1ItemStack.getItemDamage() + 1)), player.posZ);
 			world.spawnParticle("smoke", player.posX, player.posY, player.posZ, 0, 2, 0);
 			a = true;
-		}
-		if(a){
-			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - this.onUseDamageAmount);
 		}
 		return par1ItemStack;
     }
@@ -52,6 +80,11 @@ public class ItemLevitateWand extends ItemBaseWand {
 	
 	public boolean hasEffect(){
 		return true;
+	}
+	
+	@Override
+	public int getBurnTime(ItemStack s) {
+		return 5000;
 	}
 
 }
