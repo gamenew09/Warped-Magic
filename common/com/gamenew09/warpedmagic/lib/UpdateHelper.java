@@ -1,7 +1,5 @@
 package com.gamenew09.warpedmagic.lib;
 
-import net.minecraft.entity.player.*;
-
 public class UpdateHelper {
 	
 	public static boolean needToUpdate(){
