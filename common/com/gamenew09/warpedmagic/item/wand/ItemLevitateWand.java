@@ -43,7 +43,12 @@ public class ItemLevitateWand extends ItemBaseWand {
     {
 		if((player.isCollidedVertically || getLevelByMetaData(par1ItemStack) >= 3) && (!player.isCollidedHorizontally || getLevelByMetaData(par1ItemStack) >= 2) && decItemStackByItem(player, new ItemStack(Item.coal))){
 			player.setVelocity(player.motionX, 0, player.motionZ);
-			player.setPosition(player.posX, player.posY + (5 * (getLevelByMetaData(par1ItemStack))), player.posZ);
+			if(player.isSneaking()){
+				player.setPosition(player.posX, player.posY - (5 * (getLevelByMetaData(par1ItemStack))), player.posZ);
+				player.heal(20f);
+			}else{
+				player.setPosition(player.posX, player.posY + (5 * (getLevelByMetaData(par1ItemStack))), player.posZ);
+			}
 			for (int i = 0; i < 32; ++i)
 	        {
 	            world.spawnParticle("portal", player.posX, player.posY + this.itemRand.nextDouble() * .6D, player.posZ, this.itemRand.nextGaussian(), 0.0D, this.itemRand.nextGaussian());

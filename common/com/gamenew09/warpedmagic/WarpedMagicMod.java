@@ -3,6 +3,7 @@ package com.gamenew09.warpedmagic;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.Configuration;
 
 import com.gamenew09.warpedmagic.handlers.*;
 import com.gamenew09.warpedmagic.item.wand.*;
@@ -35,7 +36,14 @@ public class WarpedMagicMod {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		
+		config.load();
+		BlockIds.resetUsingConfig(config);
+		
 		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools);
+		
+		config.save();
 		
 		LanguageRegistry.addName(wandLevitate, "Levitate Wand");
 		RecipeRegistry.registerRecipes();
