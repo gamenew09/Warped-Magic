@@ -1,6 +1,7 @@
 package com.gamenew09.warpedmagic;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +25,16 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class WarpedMagicMod {
 	
 	public static final Logger log = Logger.getLogger(Reference.MOD_ID);
+	
+	public static final Logger debugLog = Logger.getLogger(Reference.MOD_ID + " Debug");
+	
+	public static void debug(String logMessage){
+		debugLog.fine(logMessage);
+	}
+	
+	public static void debug(Level l, String logMessage){
+		debugLog.log(l, logMessage);
+	}
 	
 	@Instance(Reference.MOD_ID)
 	public static WarpedMagicMod instance;

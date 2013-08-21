@@ -1,6 +1,7 @@
 package com.gamenew09.warpedmagic.lib;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import com.gamenew09.warpedmagic.ModManager;
 import com.gamenew09.warpedmagic.WarpedMagicMod;
@@ -23,8 +24,9 @@ public class RecipeRegistry {
 	}
 	
 	private static void populateInertStones(){
-		inertStones.add(com.pahimar.ee3.item.ModItems.miniumStone);
-		inertStones.add(com.pahimar.ee3.item.ModItems.philStone);
+		WarpedMagicMod.debug(Level.FINE, "Adding EE3 Items to stuff");
+		inertStones.add(ModItems.miniumStone);
+		inertStones.add(ModItems.philStone);
 	}
 	
 	public static void addEE3StoneRecipe(ItemStack out, Object[] stuff){
@@ -45,13 +47,13 @@ public class RecipeRegistry {
 	public static void registerModRecipes(){
 		ModManager mm = ModManager.getInstance();
 		try{
-			if(mm.isModInstalled(com.pahimar.ee3.lib.Reference.MOD_ID)){
-				//WarpedMagicMod.instance.log.fine("Mod EE3 is installed.");
+			if(mm.isModInstalled(Reference.MOD_ID)){
+				WarpedMagicMod.debug("Mod EE3 is installed.");
 				populateInertStones();
 				addEE3StoneRecipe(new ItemStack(WarpedMagicMod.wandLevitate), new Object[] { Item.shovelDiamond });
 			}
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 	
