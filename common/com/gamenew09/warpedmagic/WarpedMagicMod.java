@@ -1,8 +1,10 @@
 package com.gamenew09.warpedmagic;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Configuration;
 
 import com.gamenew09.warpedmagic.handlers.*;
@@ -11,6 +13,7 @@ import com.gamenew09.warpedmagic.lib.*;
 
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.*;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -20,24 +23,24 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class WarpedMagicMod {
 	
-	public static final Logger log = Logger.getLogger(WarpedMagicMod.class.getSimpleName());
+	public static final Logger log = Logger.getLogger(Reference.MOD_ID);
+	
+	@Instance(Reference.MOD_ID)
+	public static WarpedMagicMod instance;
 	
 	public static ItemBaseWand wandLevitate;
 	
-	public static boolean isBuildcraftInstalled(){
-		try {
-			Class.forName("buildcraft.api.core.BuildCraftAPI");
-			return true;
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
+	public final ModManager modManager = ModManager.getInstance();
+	
+	private Configuration config;
+	
+	public Configuration getModConfig(){
+		return config;
 	}
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		
+		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		BlockIds.resetUsingConfig(config);
 		
@@ -50,6 +53,7 @@ public class WarpedMagicMod {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 	
+	//@EventHandler
 	//public void serverStarted(FMLServerStartedEvent event){
 	//	
 	//}
@@ -61,7 +65,8 @@ public class WarpedMagicMod {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		
+		modManager.reloadList();
+		RecipeRegistry.registerModRecipes();
 	}
 	
 }
