@@ -58,7 +58,8 @@ public class ModManager {
             {
             	 continue;
             }
-            System.out.println("("+mod.getModId()+") " + mod.getName() + " " +mod.getVersion());
+            //System.out.println("("+mod.getModId()+") " + mod.getName() + " " +mod.getVersion());
+            WarpedMagicMod.debug(("("+mod.getModId()+") " + mod.getName() + " " +mod.getVersion()));
             mods.add(mod);
         }
 	}

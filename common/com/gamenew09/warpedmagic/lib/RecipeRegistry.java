@@ -32,6 +32,7 @@ public class RecipeRegistry {
 	public static void addEE3StoneRecipe(ItemStack out, Object[] stuff){
 		for(Item item : inertStones){
 			if(item == null){ continue; }
+			WarpedMagicMod.debug("Adding some item");
 			Object[] o = stuff.clone();
 			o[o.length - 1] = item;
 			GameRegistry.addShapelessRecipe(out, o);
@@ -46,6 +47,7 @@ public class RecipeRegistry {
 	
 	public static void registerModRecipes(){
 		ModManager mm = ModManager.getInstance();
+		System.out.println("aaa"); 
 		try{
 			if(mm.isModInstalled(Reference.MOD_ID)){
 				WarpedMagicMod.debug("Mod EE3 is installed.");

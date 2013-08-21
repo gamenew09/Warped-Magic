@@ -62,6 +62,8 @@ public class WarpedMagicMod {
 		LanguageRegistry.addName(wandLevitate, "Levitate Wand");
 		RecipeRegistry.registerRecipes();
 		GameRegistry.registerFuelHandler(new FuelHandler());
+		modManager.reloadList();
+		RecipeRegistry.registerModRecipes();
 	}
 	
 	//@EventHandler
@@ -76,8 +78,7 @@ public class WarpedMagicMod {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		modManager.reloadList();
-		RecipeRegistry.registerModRecipes();
+		WarpedMagicMod.debug("Init Ended");
 	}
 	
 }
