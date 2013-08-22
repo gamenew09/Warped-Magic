@@ -8,10 +8,13 @@ public class SlotMagicMaker extends Slot {
 
 	private boolean phantom;
 	
+	private boolean isAllAllowed;
+	
 	private ItemStack[] allowedItems;
 	
 	public SlotMagicMaker(IInventory par1iInventory, int par2, int par3, int par4, boolean phantom, ItemStack[] allowedItems) {
 		super(par1iInventory, par2, par3, par4);
+		isAllAllowed = !phantom && allowedItems == null;
 		this.phantom = phantom;
 		this.allowedItems = allowedItems;
 	}
@@ -19,13 +22,15 @@ public class SlotMagicMaker extends Slot {
 	@Override
 	public boolean isItemValid(ItemStack par1ItemStack) {
 		boolean r = false;
-		for(ItemStack is : allowedItems){
-			if(is.isItemEqual(par1ItemStack)){
-				r = true;
-				break;
+		if(allowedItems != null){
+			for(ItemStack is : allowedItems){
+				if(is.isItemEqual(par1ItemStack)){
+					r = true;
+					break;
+				}
 			}
 		}
-		return !phantom && r;
+		return !phantom && (r || isAllAllowed);
 	}
 
 }

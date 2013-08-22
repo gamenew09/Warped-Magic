@@ -8,9 +8,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Configuration;
 
+import com.gamenew09.warpedmagic.block.*;
 import com.gamenew09.warpedmagic.handlers.*;
 import com.gamenew09.warpedmagic.item.wand.*;
 import com.gamenew09.warpedmagic.lib.*;
+import com.gamenew09.warpedmagic.tileentity.TileEntityMagicCharger;
 
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -41,6 +43,8 @@ public class WarpedMagicMod {
 	
 	public static ItemBaseWand wandLevitate;
 	
+	public static BlockMagicCharger magicCharger;
+	
 	public final ModManager modManager = ModManager.getInstance();
 	
 	private Configuration config;
@@ -54,12 +58,18 @@ public class WarpedMagicMod {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		BlockIds.resetUsingConfig(config);
+		GameRegistry.registerTileEntity(TileEntityMagicCharger.class, "TE-MagicCharger");
+		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 		
 		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools);
+		magicCharger = (BlockMagicCharger) new BlockMagicCharger(BlockIds.magicChargerId).setCreativeTab(CreativeTabs.tabBlock);
+		
+		GameRegistry.registerBlock(magicCharger, "MagicCharger");
 		
 		config.save();
 		
 		LanguageRegistry.addName(wandLevitate, "Levitate Wand");
+		LanguageRegistry.addName(magicCharger, "Magic Charger");
 		RecipeRegistry.registerRecipes();
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		modManager.reloadList();
