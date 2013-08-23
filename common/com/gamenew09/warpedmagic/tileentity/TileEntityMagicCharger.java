@@ -17,7 +17,7 @@ public class TileEntityMagicCharger extends TileEntity implements IInventory {
 	
 	private ItemStack[] inventory;
 	
-	private int upgradeLevel;
+	private int upgradeLevel = 0;
 	
 	public TileEntityMagicCharger(){
 		inventory = new ItemStack[5];
@@ -103,12 +103,28 @@ public class TileEntityMagicCharger extends TileEntity implements IInventory {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(i);
             int j = nbttagcompound1.getByte("Slot") & 255;
 
-            if (j >= 0 && j < this.inventory.length)
+            if (j >= 0 && j < this.inventory.length && !isInSaveBlackList(j))
             {
                 this.inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
         this.upgradeLevel = par1NBTTagCompound.getInteger("UpgradeLvl");
+    }
+    
+    private int[] saveBlackList = { 4 };
+    
+    private boolean isInSaveBlackList(int id){
+    	for (int i = 0; i < this.inventory.length; i++){
+    		try{
+	    		if(saveBlackList[i] == id){
+	    			return true;
+	    		}
+    		}
+    		catch(Exception e){
+    			
+    		}
+    	}
+    	return false;
     }
     
     /**
@@ -121,7 +137,7 @@ public class TileEntityMagicCharger extends TileEntity implements IInventory {
 
         for (int i = 0; i < this.inventory.length; ++i)
         {
-            if (this.inventory[i] != null)
+            if (this.inventory[i] != null && !isInSaveBlackList(i))
             {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte)i);
@@ -153,6 +169,10 @@ public class TileEntityMagicCharger extends TileEntity implements IInventory {
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
+	}
+
+	public int getLevel() {
+		return upgradeLevel;
 	}
 
 }

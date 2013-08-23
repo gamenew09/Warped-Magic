@@ -1,28 +1,27 @@
 package com.gamenew09.warpedmagic.lib;
 
-import com.gamenew09.warpedmagic.lib.world.WorldTime;
-
 import net.minecraft.item.ItemStack;
 
 public class MagicChargingRecipe {
 
 	private ItemStack output;
-	private WorldTime time;
+	
+	private int upgradeLevelReq;
 	
 	private ItemStack[] stuff;
 	
-	public MagicChargingRecipe(ItemStack out, WorldTime requiredTime, ItemStack[] stuff){
+	public MagicChargingRecipe(ItemStack out, int upgradeLevelReq, ItemStack[] stuff){
 		this.output = out;
-		this.time = requiredTime;
 		this.stuff = stuff;
+		this.upgradeLevelReq = upgradeLevelReq;
+	}
+	
+	public int getUpgradeLevelRequired(){
+		return upgradeLevelReq;
 	}
 	
 	public ItemStack[] getStuffRequired(){
 		return stuff;
-	}
-	
-	public WorldTime getTimeCompletion(){
-		return time;
 	}
 	
 	public ItemStack getOutput(){

@@ -63,6 +63,7 @@ public class WarpedMagicMod {
 		
 		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools);
 		magicCharger = (BlockMagicCharger) new BlockMagicCharger(BlockIds.magicChargerId).setCreativeTab(CreativeTabs.tabBlock);
+		MagicChargerRecipeRegistry.getInstance();
 		
 		GameRegistry.registerBlock(magicCharger, "MagicCharger");
 		
@@ -83,7 +84,7 @@ public class WarpedMagicMod {
 	
 	@EventHandler
 	public void initMod(FMLInitializationEvent event){
-		
+		System.out.println(MagicChargerRecipeRegistry.getInstance().getRecipeByItemStack().size() + " recipe(s) registered for Magic Charger.");
 	}
 	
 	@EventHandler
