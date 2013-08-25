@@ -1,5 +1,7 @@
 package com.gamenew09.warpedmagic.lib;
 
+import java.util.Arrays;
+
 import net.minecraft.item.ItemStack;
 
 public class MagicChargingRecipe {
@@ -28,6 +30,12 @@ public class MagicChargingRecipe {
 		return output;
 	}
 	
+	@Override
+	public String toString() {
+		return "MagicChargingRecipe [output=" + output + ", upgradeLevelReq="
+				+ upgradeLevelReq + ", stuff=" + Arrays.toString(stuff) + "]";
+	}
+
 	public boolean equals(Object o){
 		try{
 			boolean isEqual = (((MagicChargingRecipe) o).getOutput() == this.getOutput()) && (((MagicChargingRecipe) o).getStuffRequired() == this.getStuffRequired());

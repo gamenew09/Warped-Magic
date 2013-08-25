@@ -32,8 +32,16 @@ public class ContainerMagicCharger extends Container {
 		addPlayerInventory(playerInv);
 	}
 	
+	private void printArray(Object[] objs){
+		for(int i = 0; i < objs.length; i++){
+			Object obj = objs[i];
+			System.out.println(i+":"+obj);
+		}
+	}
+	
 	private void onSlotChanged(int par1, int par2, int par3, EntityPlayer par4EntityPlayer){
 		ItemStack[] items = { tileEntity.getStackInSlot(0), tileEntity.getStackInSlot(1), tileEntity.getStackInSlot(2) };
+		printArray(items);
 		MagicChargingRecipe r = MagicChargerRecipeRegistry.getInstance().getRecipeMatch(items, tileEntity.getLevel());
 		System.out.println("Test");
 		if(r != null){
@@ -51,7 +59,7 @@ public class ContainerMagicCharger extends Container {
         ItemStack itemstack = null;
         Slot slot = (Slot)this.inventorySlots.get(par2);
 
-        if (slot != null && slot.getHasStack())
+        /*if (slot != null && slot.getHasStack())
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
@@ -81,7 +89,7 @@ public class ContainerMagicCharger extends Container {
             }
 
             slot.onPickupFromSlot(par1EntityPlayer, itemstack1);
-        }
+        }*/
 
         return itemstack;
     }
