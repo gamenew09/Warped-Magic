@@ -38,7 +38,6 @@ public class ItemLevitateWand extends ItemBaseWand {
 		return EnumChatFormatting.GOLD + super.getItemDisplayName(itemStack);
 	}
 	
-	@SuppressWarnings("static-access")
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World world, EntityPlayer player)
     {
 		if((player.isCollidedVertically || getLevelByMetaData(par1ItemStack) >= 3) && (!player.isCollidedHorizontally || getLevelByMetaData(par1ItemStack) >= 2) && decItemStackByItem(player, new ItemStack(Item.coal))){
@@ -51,7 +50,7 @@ public class ItemLevitateWand extends ItemBaseWand {
 			}
 			for (int i = 0; i < 32; ++i)
 	        {
-	            world.spawnParticle("portal", player.posX, player.posY + this.itemRand.nextDouble() * .6D, player.posZ, this.itemRand.nextGaussian(), 0.0D, this.itemRand.nextGaussian());
+	            world.spawnParticle("portal", player.posX, player.posY + itemRand.nextDouble() * .6D, player.posZ, itemRand.nextGaussian(), 0.0D, itemRand.nextGaussian());
 	        }
 		}
 		return par1ItemStack;

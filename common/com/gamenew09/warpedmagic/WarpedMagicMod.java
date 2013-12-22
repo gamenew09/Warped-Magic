@@ -28,7 +28,7 @@ public class WarpedMagicMod {
 	
 	public static final Logger debugLog = Logger.getLogger(Reference.MOD_ID + " Debug");
 	
-	@SidedProxy(clientSide="", serverSide="")
+	@SidedProxy(clientSide=Reference.MOD_CLIENT_PROXY, serverSide=Reference.MOD_SERVER_PROXY)
 	public static CommonProxy proxy;
 	
 	public static void debug(String logMessage){
