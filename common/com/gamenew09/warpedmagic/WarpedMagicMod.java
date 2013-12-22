@@ -1,18 +1,16 @@
 package com.gamenew09.warpedmagic;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Configuration;
 
 import com.gamenew09.warpedmagic.block.*;
 import com.gamenew09.warpedmagic.handlers.*;
 import com.gamenew09.warpedmagic.item.wand.*;
 import com.gamenew09.warpedmagic.lib.*;
-import com.gamenew09.warpedmagic.tileentity.TileEntityMagicCharger;
+import com.gamenew09.warpedmagic.proxy.CommonProxy;
 
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -30,6 +28,9 @@ public class WarpedMagicMod {
 	
 	public static final Logger debugLog = Logger.getLogger(Reference.MOD_ID + " Debug");
 	
+	@SidedProxy(clientSide="", serverSide="")
+	public static CommonProxy proxy;
+	
 	public static void debug(String logMessage){
 		debugLog.fine(logMessage);
 	}
@@ -43,10 +44,6 @@ public class WarpedMagicMod {
 	
 	public static ItemBaseWand wandLevitate;
 	
-	public static BlockMagicCharger magicCharger;
-	
-	public final ModManager modManager = ModManager.getInstance();
-	
 	private Configuration config;
 	
 	public Configuration getModConfig(){
@@ -58,23 +55,12 @@ public class WarpedMagicMod {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		BlockIds.resetUsingConfig(config);
-		GameRegistry.registerTileEntity(TileEntityMagicCharger.class, "TE-MagicCharger");
-		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
-		
-		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools);
-		magicCharger = (BlockMagicCharger) new BlockMagicCharger(BlockIds.magicChargerId).setCreativeTab(CreativeTabs.tabBlock);
-		MagicChargerRecipeRegistry.getInstance();
-		
-		GameRegistry.registerBlock(magicCharger, "MagicCharger");
+		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("wandLevitate");
 		
 		config.save();
 		
 		LanguageRegistry.addName(wandLevitate, "Levitate Wand");
-		LanguageRegistry.addName(magicCharger, "Magic Charger");
-		RecipeRegistry.registerRecipes();
 		GameRegistry.registerFuelHandler(new FuelHandler());
-		modManager.reloadList();
-		RecipeRegistry.registerModRecipes();
 	}
 	
 	//@EventHandler
@@ -84,7 +70,7 @@ public class WarpedMagicMod {
 	
 	@EventHandler
 	public void initMod(FMLInitializationEvent event){
-		System.out.println(MagicChargerRecipeRegistry.getInstance().getRecipeByItemStack().size() + " recipe(s) registered for Magic Charger.");
+		
 	}
 	
 	@EventHandler
