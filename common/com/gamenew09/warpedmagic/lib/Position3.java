@@ -10,7 +10,7 @@ public class Position3 {
 		this.z = z;
 	}
 	
-	public int[] getPosGrid(){
+	public int[] getPosArray(){
 		int[] i = new int[3];
 		i[0] = x;
 		i[1] = y;

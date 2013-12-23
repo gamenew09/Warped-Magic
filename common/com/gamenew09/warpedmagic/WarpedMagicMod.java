@@ -1,7 +1,6 @@
 package com.gamenew09.warpedmagic;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
@@ -17,8 +16,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.*;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.*;
 
 @Mod(modid=Reference.MOD_ID, name=Reference.MOD_NAME, version=Reference.MOD_VERSION)
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
@@ -59,7 +57,7 @@ public class WarpedMagicMod {
 		
 		config.save();
 		
-		LanguageRegistry.addName(wandLevitate, "Levitate Wand");
+		//LanguageRegistry.addName(wandLevitate, "Levitate Wand");
 		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 	
