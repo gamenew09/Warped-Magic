@@ -2,11 +2,17 @@ package com.gamenew09.warpedmagic;
 
 import java.util.logging.*;
 
+import net.minecraft.block.BlockOre;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 
 import com.gamenew09.warpedmagic.block.*;
+import com.gamenew09.warpedmagic.creativetabs.*;
+import com.gamenew09.warpedmagic.generator.OreGenerator;
 import com.gamenew09.warpedmagic.handlers.*;
+import com.gamenew09.warpedmagic.item.ItemRedCrystal;
 import com.gamenew09.warpedmagic.item.wand.*;
 import com.gamenew09.warpedmagic.lib.*;
 import com.gamenew09.warpedmagic.proxy.CommonProxy;
@@ -37,10 +43,17 @@ public class WarpedMagicMod {
 		debugLog.log(l, logMessage);
 	}
 	
+	public static CreativeTabs tabWand = new CreativeTabWand();
+	public static CreativeTabs tabBlocksnItems = new CreativeTabBlockItem();
+	
 	@Instance(Reference.MOD_ID)
 	public static WarpedMagicMod instance;
 	
+	public static Item redCrystal;
+	
 	public static ItemBaseWand wandLevitate;
+	
+	public static BlockOre redCrystalOre;
 	
 	private Configuration config;
 	
@@ -53,12 +66,25 @@ public class WarpedMagicMod {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		BlockIds.resetUsingConfig(config);
-		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("wandLevitate");
+		wandLevitate = (ItemBaseWand) new ItemLevitateWand(BlockIds.levitateWand, 1).setUnlocalizedName("wandLevitate");
+		redCrystalOre = new BlockRedCrystalOre(254);
+		redCrystal = new ItemRedCrystal(2435).setUnlocalizedName("redCrystal").setCreativeTab(tabBlocksnItems);
+		
+		GameRegistry.registerBlock(redCrystalOre, "redCrystalOre");
 		
 		config.save();
 		
-		//LanguageRegistry.addName(wandLevitate, "Levitate Wand");
+		//Generation
+		GameRegistry.registerWorldGenerator(new OreGenerator());
+		//End Generation
+		
 		GameRegistry.registerFuelHandler(new FuelHandler());
+		
+		//Recipes
+		GameRegistry.addRecipe(new ItemStack(wandLevitate), new Object[] {
+			"XF ", " S ", "  S", Character.valueOf('X'), redCrystal, Character.valueOf('F'), Item.feather, Character.valueOf('S'), Item.stick
+		});
+		ItemBaseWand.addLevelRecipes(wandLevitate, new ItemStack(redCrystal));
 	}
 	
 	//@EventHandler

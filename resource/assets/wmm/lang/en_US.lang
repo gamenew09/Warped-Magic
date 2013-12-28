@@ -1,4 +1,15 @@
 # Other localizations
 
+# Creative tab localizations
+# itemGroup = creative tab
+itemGroup.WMM_wands=Warped Magic Wands
+itemGroup.WMM_blocksnitems=Warped Magic Blocks n' Items
+
+# Block localizations
+# tile = block
+tile.redCrystalOre.name=Red Crystal Ore
+
 # Item localizations
+# item = itme
 item.wandLevitate.name=Levitate Wand
+item.redCrystal.name=Red Magic Crystal

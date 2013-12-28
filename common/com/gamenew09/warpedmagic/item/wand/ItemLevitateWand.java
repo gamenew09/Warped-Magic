@@ -2,6 +2,8 @@ package com.gamenew09.warpedmagic.item.wand;
 
 import java.util.List;
 
+import com.gamenew09.warpedmagic.WarpedMagicMod;
+
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
