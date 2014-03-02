@@ -15,3 +15,4 @@ If you want the mod to work you must have forge installed and a workspace that a
 Want to help?
 ------------
 All you have to do is submit issues or pull requests! Any redundant requests or issues will be closed.
+I am welcome to have translators for the mod! All you have to do is submit an pull request/issue and we'll probably accept it.
